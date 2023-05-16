@@ -3,7 +3,7 @@ using System.Data;
 using System.Configuration;
 namespace inventory_management
 {
-    partial class Form1
+    partial class ProductManagement
     {
         /// <summary>
         /// Required designer variable.

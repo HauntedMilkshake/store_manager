@@ -12,9 +12,9 @@ using System.Windows.Forms;
 
 namespace inventory_management
 {
-    public partial class Form1 : Form
+    public partial class ProductManagement : Form
     {
-        public Form1()
+        public ProductManagement()
         {
         }
         private static string GetConnectionString()
@@ -39,6 +39,18 @@ namespace inventory_management
                 // Do something with the data, for example, display it in a DataGridView.
             }
 
+
+        }
+
+        private void InitializeComponent()
+        {
+            this.SuspendLayout();
+            // 
+            // ProductManagement
+            // 
+            this.ClientSize = new System.Drawing.Size(933, 601);
+            this.Name = "ProductManagement";
+            this.ResumeLayout(false);
 
         }
     }

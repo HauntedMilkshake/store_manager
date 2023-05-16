@@ -11,3 +11,6 @@ D:\Programming\alo.bg\client4\store_manager\inventory_management\obj\Debug\inven
 D:\Programming\alo.bg\client4\store_manager\inventory_management\obj\Debug\inventory_management.csproj.CopyComplete
 D:\Programming\alo.bg\client4\store_manager\inventory_management\obj\Debug\inventory_management.exe
 D:\Programming\alo.bg\client4\store_manager\inventory_management\obj\Debug\inventory_management.pdb
+D:\Programming\alo.bg\client4\store_manager\inventory_management\obj\Debug\inventory_management.LogIn.resources
+D:\Programming\alo.bg\client4\store_manager\inventory_management\obj\Debug\inventory_management.Welcome.resources
+D:\Programming\alo.bg\client4\store_manager\inventory_management\obj\Debug\inventory_management.SignUp.resources
