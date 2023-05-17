@@ -22,8 +22,23 @@ namespace inventory_management
             }
             base.Dispose(disposing);
         }
-       
-       
+
+        private System.Windows.Forms.GroupBox productManagementGB;
+        private System.Windows.Forms.DataGridView productDGV;
+        private System.Windows.Forms.Label nameLabel;
+        private System.Windows.Forms.Button add;
+        private System.Windows.Forms.TextBox pPrice;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox pName;
+        private System.Windows.Forms.ComboBox pCategory;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button delete;
+        private System.Windows.Forms.Button edit;
+        private System.Windows.Forms.Button inventory;
+        private System.Windows.Forms.Button history;
+        private System.Windows.Forms.DateTimePicker shelfLife;
+        private System.Windows.Forms.Label warning;
     }
 }
 

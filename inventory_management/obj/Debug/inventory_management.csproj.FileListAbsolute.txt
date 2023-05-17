@@ -14,3 +14,4 @@ D:\Programming\alo.bg\client4\store_manager\inventory_management\obj\Debug\inven
 D:\Programming\alo.bg\client4\store_manager\inventory_management\obj\Debug\inventory_management.LogIn.resources
 D:\Programming\alo.bg\client4\store_manager\inventory_management\obj\Debug\inventory_management.Welcome.resources
 D:\Programming\alo.bg\client4\store_manager\inventory_management\obj\Debug\inventory_management.SignUp.resources
+D:\Programming\alo.bg\client4\store_manager\inventory_management\obj\Debug\inventory_management.ProductManagement.resources

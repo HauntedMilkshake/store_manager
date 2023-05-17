@@ -16,6 +16,7 @@ namespace inventory_management
     {
         public string Username { get; set; }
         public string Password { get; set; }
+     
         public LogIn()
         {
             InitializeComponent();
@@ -35,19 +36,28 @@ namespace inventory_management
         
         private void procede_Click(object sender, EventArgs e)
         {
-            if (canContinue())
+            try
             {
-                if(ValidateUserCredentials(Username, Password))
+                if (canContinue())
                 {
-                    addLastLogin(Username);
-                    ProductManagement form = new ProductManagement();
-                    this.Hide();
-                    form.ShowDialog();
-
+                    if (ValidateUserCredentials(Username, Password))
+                    {
+                        addLastLogin(Username);
+                        ProductManagement form = new ProductManagement();
+                        form.userID = GetUserIdByUsername(Username);
+                        this.Hide();
+                        form.ShowDialog();
+                        this.Close();
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+
         }
-        
+
         private bool ValidateUserCredentials(string username, string password)
         {
             using (OleDbConnection connection = new OleDbConnection(Database.GetConnectionString()))
@@ -84,7 +94,31 @@ namespace inventory_management
                 }
             }
         }
+        public static int GetUserIdByUsername(string username)
+        {
+            using (OleDbConnection connection = new OleDbConnection(Database.GetConnectionString()))
+            {
+                connection.Open();
 
+                string selectQuery = "SELECT id FROM users WHERE username = ?";
+
+                using (OleDbCommand command = new OleDbCommand(selectQuery, connection))
+                {
+                    command.Parameters.AddWithValue("@Username", username);
+
+                    object result = command.ExecuteScalar();
+
+                    if (result != null && int.TryParse(result.ToString(), out int userId))
+                    {
+                        return userId;
+                    }
+                    else
+                    {
+                        return -1; // Return -1 if the user ID is not found or there's an issue with the data.
+                    }
+                }
+            }
+        }
         private void textBox2_TextChanged(object sender, EventArgs e)
         {
 
