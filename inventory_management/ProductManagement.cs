@@ -39,6 +39,12 @@ namespace inventory_management
         private void InitializeComponent()
         {
             this.productManagementGB = new System.Windows.Forms.GroupBox();
+            this.checkShelfLife = new System.Windows.Forms.Button();
+            this.refresh = new System.Windows.Forms.Button();
+            this.productID = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.warning = new System.Windows.Forms.Label();
+            this.shelfLife = new System.Windows.Forms.DateTimePicker();
             this.delete = new System.Windows.Forms.Button();
             this.edit = new System.Windows.Forms.Button();
             this.inventory = new System.Windows.Forms.Button();
@@ -52,14 +58,16 @@ namespace inventory_management
             this.nameLabel = new System.Windows.Forms.Label();
             this.add = new System.Windows.Forms.Button();
             this.productDGV = new System.Windows.Forms.DataGridView();
-            this.shelfLife = new System.Windows.Forms.DateTimePicker();
-            this.warning = new System.Windows.Forms.Label();
             this.productManagementGB.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.productDGV)).BeginInit();
             this.SuspendLayout();
             // 
             // productManagementGB
             // 
+            this.productManagementGB.Controls.Add(this.checkShelfLife);
+            this.productManagementGB.Controls.Add(this.refresh);
+            this.productManagementGB.Controls.Add(this.productID);
+            this.productManagementGB.Controls.Add(this.label1);
             this.productManagementGB.Controls.Add(this.warning);
             this.productManagementGB.Controls.Add(this.shelfLife);
             this.productManagementGB.Controls.Add(this.delete);
@@ -80,6 +88,63 @@ namespace inventory_management
             this.productManagementGB.Size = new System.Drawing.Size(1160, 536);
             this.productManagementGB.TabIndex = 0;
             this.productManagementGB.TabStop = false;
+            // 
+            // checkShelfLife
+            // 
+            this.checkShelfLife.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkShelfLife.Location = new System.Drawing.Point(117, 433);
+            this.checkShelfLife.Name = "checkShelfLife";
+            this.checkShelfLife.Size = new System.Drawing.Size(82, 37);
+            this.checkShelfLife.TabIndex = 20;
+            this.checkShelfLife.Text = "check";
+            this.checkShelfLife.UseVisualStyleBackColor = true;
+            this.checkShelfLife.Click += new System.EventHandler(this.checkShelfLife_Click);
+            // 
+            // refresh
+            // 
+            this.refresh.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.refresh.Location = new System.Drawing.Point(116, 493);
+            this.refresh.Name = "refresh";
+            this.refresh.Size = new System.Drawing.Size(83, 36);
+            this.refresh.TabIndex = 19;
+            this.refresh.Text = "refresh";
+            this.refresh.UseVisualStyleBackColor = true;
+            this.refresh.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // productID
+            // 
+            this.productID.Location = new System.Drawing.Point(172, 34);
+            this.productID.Name = "productID";
+            this.productID.Size = new System.Drawing.Size(131, 20);
+            this.productID.TabIndex = 18;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(2, 30);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(93, 23);
+            this.label1.TabIndex = 17;
+            this.label1.Text = "Product ID";
+            // 
+            // warning
+            // 
+            this.warning.AutoSize = true;
+            this.warning.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.warning.Location = new System.Drawing.Point(54, 383);
+            this.warning.Name = "warning";
+            this.warning.Size = new System.Drawing.Size(201, 23);
+            this.warning.TabIndex = 16;
+            this.warning.Text = "Fields mustn\'t be empty !";
+            this.warning.Visible = false;
+            // 
+            // shelfLife
+            // 
+            this.shelfLife.Location = new System.Drawing.Point(103, 268);
+            this.shelfLife.Name = "shelfLife";
+            this.shelfLife.Size = new System.Drawing.Size(200, 20);
+            this.shelfLife.TabIndex = 15;
             // 
             // delete
             // 
@@ -112,6 +177,7 @@ namespace inventory_management
             this.inventory.TabIndex = 12;
             this.inventory.Text = "inventory";
             this.inventory.UseVisualStyleBackColor = true;
+            this.inventory.Click += new System.EventHandler(this.inventory_Click);
             // 
             // history
             // 
@@ -122,6 +188,7 @@ namespace inventory_management
             this.history.TabIndex = 11;
             this.history.Text = "history";
             this.history.UseVisualStyleBackColor = true;
+            this.history.Click += new System.EventHandler(this.history_Click);
             // 
             // label4
             // 
@@ -156,7 +223,7 @@ namespace inventory_management
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(6, 173);
+            this.label3.Location = new System.Drawing.Point(2, 173);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(84, 23);
             this.label3.TabIndex = 8;
@@ -165,16 +232,17 @@ namespace inventory_management
             // 
             // pPrice
             // 
-            this.pPrice.Location = new System.Drawing.Point(172, 103);
+            this.pPrice.Location = new System.Drawing.Point(172, 131);
             this.pPrice.Name = "pPrice";
             this.pPrice.Size = new System.Drawing.Size(131, 20);
             this.pPrice.TabIndex = 5;
+            this.pPrice.TextChanged += new System.EventHandler(this.pPrice_TextChanged);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(6, 103);
+            this.label2.Location = new System.Drawing.Point(2, 128);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(53, 23);
             this.label2.TabIndex = 4;
@@ -182,16 +250,17 @@ namespace inventory_management
             // 
             // pName
             // 
-            this.pName.Location = new System.Drawing.Point(172, 19);
+            this.pName.Location = new System.Drawing.Point(172, 82);
             this.pName.Name = "pName";
             this.pName.Size = new System.Drawing.Size(131, 20);
             this.pName.TabIndex = 3;
+            this.pName.TextChanged += new System.EventHandler(this.pName_TextChanged);
             // 
             // nameLabel
             // 
             this.nameLabel.AutoSize = true;
             this.nameLabel.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nameLabel.Location = new System.Drawing.Point(6, 19);
+            this.nameLabel.Location = new System.Drawing.Point(2, 78);
             this.nameLabel.Name = "nameLabel";
             this.nameLabel.Size = new System.Drawing.Size(123, 23);
             this.nameLabel.TabIndex = 2;
@@ -217,24 +286,7 @@ namespace inventory_management
             this.productDGV.Name = "productDGV";
             this.productDGV.Size = new System.Drawing.Size(844, 511);
             this.productDGV.TabIndex = 0;
-            // 
-            // shelfLife
-            // 
-            this.shelfLife.Location = new System.Drawing.Point(103, 268);
-            this.shelfLife.Name = "shelfLife";
-            this.shelfLife.Size = new System.Drawing.Size(200, 20);
-            this.shelfLife.TabIndex = 15;
-            // 
-            // warning
-            // 
-            this.warning.AutoSize = true;
-            this.warning.Font = new System.Drawing.Font("Calibri", 14.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.warning.Location = new System.Drawing.Point(44, 405);
-            this.warning.Name = "warning";
-            this.warning.Size = new System.Drawing.Size(201, 23);
-            this.warning.TabIndex = 16;
-            this.warning.Text = "Fields mustn\'t be empty !";
-            this.warning.Visible = false;
+            this.productDGV.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.productDGV_CellContentClick);
             // 
             // ProductManagement
             // 
@@ -279,7 +331,7 @@ namespace inventory_management
             if (canAdd())
             {
 
-
+                string productId = productID.Text;
                 string name = pName.Text;
                 decimal price = Convert.ToDecimal(pPrice.Text);
                 string category = pCategory.SelectedItem.ToString();
@@ -288,8 +340,9 @@ namespace inventory_management
                 int lastUpdatedBy = userID; // Replace this with the current user's ID
 
 
-                string query = "INSERT INTO product (name, price, category, shelf_life, last_updated_at, last_updated_by) VALUES (?, ?, ?, ?, ?, ?)";
+                string query = "INSERT INTO product (id, name, price, category, shelf_life, last_updated_at, last_updated_by) VALUES (?, ?, ?, ?, ?, ?, ?)";
                 OleDbParameter[] parameters = {
+                new OleDbParameter("@id", productId),
                 new OleDbParameter("@name", name),
                 new OleDbParameter("@price", price),
                 new OleDbParameter("@category", category),
@@ -301,6 +354,7 @@ namespace inventory_management
                 Database.ExecuteNonQuery(query, parameters);
                 LoadProducts();
                 resetText();
+                warning.Visible = false;
             }
             else
             {
@@ -309,6 +363,7 @@ namespace inventory_management
         }
         public void resetText()
         {
+            productID.Text = string.Empty;
             pName.Text = string.Empty;
             pPrice.Text = string.Empty;
             pCategory.Text = string.Empty;
@@ -316,77 +371,175 @@ namespace inventory_management
         }
         private void edit_Click(object sender, EventArgs e)
         {
-            using (OleDbConnection connection = new OleDbConnection(Database.GetConnectionString()))
+            if (productDGV.SelectedRows.Count == 0)
             {
-                connection.Open();
-                string name = pName.Text;
-                decimal price = Convert.ToDecimal(pPrice.Text);
-                string category = pCategory.SelectedItem.ToString();
-                string pShelfLife = shelfLife.Value.ToString("yyyy-MM-dd HH:mm:ss");
-                string lastUpdatedAt = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                int lastUpdatedBy = userID; // Replace this with the current user's ID
-
-                string updateQuery = "UPDATE product SET name = ?, price = ?, category = ?, shelf_life = ?, last_updated_at = ?, last_updated_by = ? WHERE id = ?";
-
-                using (OleDbCommand command = new OleDbCommand(updateQuery, connection))
-                {
-                    command.Parameters.AddWithValue("@Name", name);
-                    command.Parameters.AddWithValue("@Price", price);
-                    command.Parameters.AddWithValue("@Category", category);
-                    command.Parameters.AddWithValue("@ShelfLife", shelfLife);
-                    command.Parameters.AddWithValue("@LastUpdatedAt", lastUpdatedAt);
-                    command.Parameters.AddWithValue("@LastUpdatedBy", lastUpdatedBy);
-                    command.Parameters.AddWithValue("@ProductId", getProductId(name));
-
-                    command.ExecuteNonQuery();
-                }
+                MessageBox.Show("Please select a product from the table to edit.");
+                return;
             }
+
+            string productId = productID.Text;
+            string name = pName.Text;
+            decimal price;
+            Console.WriteLine("pPrice.Text: '" + pPrice.Text + "'");
+            decimal price;
+            if (!decimal.TryParse(pPrice.Text, out price))
+            {
+                MessageBox.Show("Price must be a valid decimal number.");
+                return;
+            }
+            string category = pCategory.SelectedItem.ToString();
+            string pShelfLife = shelfLife.Value.ToString("yyyy-MM-dd HH:mm:ss");
+            string lastUpdatedAt = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            int lastUpdatedBy = userID; // Replace this with the current user's ID
+
+            string updateQuery = "UPDATE product SET name = ?, price = ?, category = ?, shelf_life = ?, last_updated_at = ?, last_updated_by = ? WHERE id = ?";
+
+            OleDbParameter[] parameters = {
+    new OleDbParameter("@Name", name),
+    new OleDbParameter("@Price", price),
+    new OleDbParameter("@Category", category),
+    new OleDbParameter("@ShelfLife", pShelfLife),
+    new OleDbParameter("@LastUpdatedAt", lastUpdatedAt),
+    new OleDbParameter("@LastUpdatedBy", lastUpdatedBy),
+    new OleDbParameter("@ProductId", productId)
+    };
+
+            Database.ExecuteNonQuery(updateQuery, parameters);
             LoadProducts();
             resetText();
+            add.Text = "Add"; // Switch back to Add mode after updating
         }
-        private int getProductId(string name)
-        {
-            using (OleDbConnection connection = new OleDbConnection(Database.GetConnectionString()))
-            {
-                connection.Open();
 
-                string selectQuery = "SELECT id FROM product WHERE name = ?";
 
-                using (OleDbCommand command = new OleDbCommand(selectQuery, connection))
-                {
-                    command.Parameters.AddWithValue("@Username", name);
-
-                    object result = command.ExecuteScalar();
-
-                    if (result != null && int.TryParse(result.ToString(), out int userId))
-                    {
-                        return userId;
-                    }
-                    else
-                    {
-                        return -1; // Return -1 if the user ID is not found or there's an issue with the data.
-                    }
-                }
-            }
-        }
 
         private void delete_Click(object sender, EventArgs e)
         {
+            if (productDGV.SelectedRows.Count > 0)
+            {
+                string id = productDGV.SelectedRows[0].Cells[0].Value.ToString();  // Assuming 'ID' is in the first column of your DataGridView
+                string deleteQuery = "DELETE FROM product WHERE id = ?";
+                OleDbParameter[] parameters = {
+            new OleDbParameter("@id", id)
+        };
+                Database.ExecuteNonQuery(deleteQuery, parameters);
+                LoadProducts();
+            }
+            else
+            {
+                MessageBox.Show("Please select a row to delete");
+            }
+        }
+
+        private void history_Click(object sender, EventArgs e)
+        {
+            History history = new History();
+            history.userID = this.userID;
+            this.Hide();
+            history.ShowDialog();
+        }
+
+        private void pPrice_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pName_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void inventory_Click(object sender, EventArgs e)
+        {
+           InventoryManagement inventoryManagement = new InventoryManagement(); 
+            inventoryManagement.userID = this.userID;
+            this.Hide();
+            inventoryManagement.ShowDialog();   
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            LoadProducts();
+        }
+
+        private void checkShelfLife_Click(object sender, EventArgs e)
+        {
+            if (productDGV.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Please select a product row first!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            DataGridViewRow selectedRow = productDGV.SelectedRows[0];
+            string productId = selectedRow.Cells["id"].Value.ToString();
+            DateTime shelfLife = Convert.ToDateTime(selectedRow.Cells["shelf_life"].Value);
+
+            // Check if product exists in inventory.
+            if (!ProductExistsInInventory(productId))
+            {
+                MessageBox.Show("The selected product does not have an inventory entry. Please create one.", "Product Check", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            if (DateTime.Now > shelfLife)
+            {
+                MessageBox.Show("The selected product has expired. Updating product shelf life and inventory quantity to 0.", "Product Expired", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                UpdateExpiredProduct(productId);
+                LoadProducts();
+            }
+            else
+            {
+                MessageBox.Show("The selected product is within its shelf life.", "Product Check", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private bool ProductExistsInInventory(string productId)
+        {
+            bool exists = false;
             using (OleDbConnection connection = new OleDbConnection(Database.GetConnectionString()))
             {
                 connection.Open();
+                string query = "SELECT COUNT(*) FROM inventory WHERE product_id = ?";
 
-                string deleteQuery = "DELETE FROM product WHERE id = ?";
-
-                using (OleDbCommand command = new OleDbCommand(deleteQuery, connection))
+                using (OleDbCommand command = new OleDbCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@ProductId", getProductId(pName.Text));
+                    command.Parameters.AddWithValue("@product_id", productId);
 
-                    command.ExecuteNonQuery();
+                    int count = Convert.ToInt32(command.ExecuteScalar());
+                    exists = count > 0;
                 }
             }
-            LoadProducts();
-            resetText();
+            return exists;
+        }
+
+
+
+        private bool IsExpired(DateTime lastUpdatedAt, int shelfLifeInDays)
+        {
+            return DateTime.Now > lastUpdatedAt.AddDays(shelfLifeInDays);
+        }
+
+        private void UpdateExpiredProduct(string productId)
+        {
+            string updateProductQuery = "UPDATE product SET shelf_life = 0 WHERE id = ?";
+            Database.ExecuteNonQuery(updateProductQuery, new OleDbParameter[] { new OleDbParameter("@id", productId) });
+
+            string updateInventoryQuery = "UPDATE inventory SET quantity = 0 WHERE product_id = ?";
+            Database.ExecuteNonQuery(updateInventoryQuery, new OleDbParameter[] { new OleDbParameter("@product_id", productId) });
+        }
+
+        private void productDGV_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow row = this.productDGV.Rows[e.RowIndex];
+
+                productID.Text = row.Cells["id"].Value.ToString();
+                pName.Text = row.Cells["name"].Value.ToString();
+                pPrice.Text = row.Cells["price"].Value.ToString();
+                pCategory.SelectedItem = row.Cells["category"].Value.ToString();
+                shelfLife.Value = Convert.ToDateTime(row.Cells["shelf_life"].Value);
+                add.Text = "Update"; // Switch the button to Update mode
+            }
         }
     }
 }

@@ -39,6 +39,10 @@ namespace inventory_management
         private System.Windows.Forms.Button history;
         private System.Windows.Forms.DateTimePicker shelfLife;
         private System.Windows.Forms.Label warning;
+        private System.Windows.Forms.TextBox productID;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button refresh;
+        private System.Windows.Forms.Button checkShelfLife;
     }
 }
 

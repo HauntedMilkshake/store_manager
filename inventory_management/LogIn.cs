@@ -46,8 +46,9 @@ namespace inventory_management
                         ProductManagement form = new ProductManagement();
                         form.userID = GetUserIdByUsername(Username);
                         this.Hide();
-                        form.ShowDialog();
                         this.Close();
+                        form.ShowDialog();
+
                     }
                 }
             }
