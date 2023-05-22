@@ -330,18 +330,36 @@ namespace inventory_management
         {
             if (canAdd())
             {
-
                 string productId = productID.Text;
                 string name = pName.Text;
                 decimal price = Convert.ToDecimal(pPrice.Text);
                 string category = pCategory.SelectedItem.ToString();
                 string pShelfLife = shelfLife.Value.ToString("yyyy-MM-dd HH:mm:ss");
                 string lastUpdatedAt = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                int lastUpdatedBy = userID; // Replace this with the current user's ID
+                int lastUpdatedBy = userID;
 
+                if (add.Text == "Update") // If the button is in 'Update' mode
+                {
+                    string updateQuery = "UPDATE product SET name = ?, price = ?, category = ?, shelf_life = ?, last_updated_at = ?, last_updated_by = ? WHERE id = ?";
 
-                string query = "INSERT INTO product (id, name, price, category, shelf_life, last_updated_at, last_updated_by) VALUES (?, ?, ?, ?, ?, ?, ?)";
-                OleDbParameter[] parameters = {
+                    OleDbParameter[] parameters = {
+                new OleDbParameter("@Name", name),
+                new OleDbParameter("@Price", price),
+                new OleDbParameter("@Category", category),
+                new OleDbParameter("@ShelfLife", pShelfLife),
+                new OleDbParameter("@LastUpdatedAt", lastUpdatedAt),
+                new OleDbParameter("@LastUpdatedBy", lastUpdatedBy),
+                new OleDbParameter("@ProductId", productId)
+            };
+
+                    Database.ExecuteNonQuery(updateQuery, parameters);
+                    add.Text = "Add"; // Switch back to Add mode after updating
+                }
+                else // The Add mode
+                {
+                    string insertQuery = "INSERT INTO product (id, name, price, category, shelf_life, last_updated_at, last_updated_by) VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+                    OleDbParameter[] parameters = {
                 new OleDbParameter("@id", productId),
                 new OleDbParameter("@name", name),
                 new OleDbParameter("@price", price),
@@ -351,7 +369,9 @@ namespace inventory_management
                 new OleDbParameter("@last_updated_by", lastUpdatedBy)
             };
 
-                Database.ExecuteNonQuery(query, parameters);
+                    Database.ExecuteNonQuery(insertQuery, parameters);
+                }
+
                 LoadProducts();
                 resetText();
                 warning.Visible = false;
@@ -361,6 +381,7 @@ namespace inventory_management
                 warning.Visible = true;
             }
         }
+
         public void resetText()
         {
             productID.Text = string.Empty;
@@ -371,43 +392,25 @@ namespace inventory_management
         }
         private void edit_Click(object sender, EventArgs e)
         {
-            if (productDGV.SelectedRows.Count == 0)
+            if (productDGV.SelectedRows.Count > 0)
+            {
+                // Get the selected row
+                DataGridViewRow selectedRow = productDGV.SelectedRows[0];
+
+                // Fill the input fields with the selected row's data
+                productID.Text = selectedRow.Cells[0].Value.ToString();
+                pName.Text = selectedRow.Cells[1].Value.ToString();
+                pPrice.Text = selectedRow.Cells[2].Value.ToString();
+                pCategory.SelectedItem = selectedRow.Cells[3].Value.ToString();
+                shelfLife.Value = DateTime.Parse(selectedRow.Cells[4].Value.ToString());
+
+                // Switch to edit mode
+                add.Text = "Update";
+            }
+            else
             {
                 MessageBox.Show("Please select a product from the table to edit.");
-                return;
             }
-
-            string productId = productID.Text;
-            string name = pName.Text;
-            decimal price;
-            Console.WriteLine("pPrice.Text: '" + pPrice.Text + "'");
-            decimal price;
-            if (!decimal.TryParse(pPrice.Text, out price))
-            {
-                MessageBox.Show("Price must be a valid decimal number.");
-                return;
-            }
-            string category = pCategory.SelectedItem.ToString();
-            string pShelfLife = shelfLife.Value.ToString("yyyy-MM-dd HH:mm:ss");
-            string lastUpdatedAt = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-            int lastUpdatedBy = userID; // Replace this with the current user's ID
-
-            string updateQuery = "UPDATE product SET name = ?, price = ?, category = ?, shelf_life = ?, last_updated_at = ?, last_updated_by = ? WHERE id = ?";
-
-            OleDbParameter[] parameters = {
-    new OleDbParameter("@Name", name),
-    new OleDbParameter("@Price", price),
-    new OleDbParameter("@Category", category),
-    new OleDbParameter("@ShelfLife", pShelfLife),
-    new OleDbParameter("@LastUpdatedAt", lastUpdatedAt),
-    new OleDbParameter("@LastUpdatedBy", lastUpdatedBy),
-    new OleDbParameter("@ProductId", productId)
-    };
-
-            Database.ExecuteNonQuery(updateQuery, parameters);
-            LoadProducts();
-            resetText();
-            add.Text = "Add"; // Switch back to Add mode after updating
         }
 
 
